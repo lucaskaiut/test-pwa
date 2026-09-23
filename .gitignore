@@ -12,6 +12,8 @@ dist
 dist-ssr
 dev-dist
 *.local
+push.config.json
+push.subscription.json
 
 # Editor directories and files
 .vscode/*

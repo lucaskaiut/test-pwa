@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "pwa:assets": "pwa-assets-generator --preset minimal-2023 public/favicon.svg",
-    "pwa:splash": "node scripts/generate-splash-screens.mjs"
+    "pwa:splash": "node scripts/generate-splash-screens.mjs",
+    "push:server": "node scripts/push-server.mjs"
   },
   "dependencies": {
     "react": "^19.2.8",
@@ -30,6 +31,7 @@
     "typescript-eslint": "^8.69.0",
     "vite": "^8.3.0",
     "vite-plugin-pwa": "^1.3.0",
+    "web-push": "^3.6.7",
     "workbox-window": "^7.4.1"
   }
 }

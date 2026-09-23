@@ -8,6 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'prompt',
+      includeManifestIcons: false,
       manifest: {
         id: '/',
         name: 'Test PWA',
@@ -47,7 +48,13 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2}'],
-        globIgnores: ['**/splash/**'],
+        globIgnores: [
+          '**/splash/**',
+          '**/push-sw.js',
+          '**/sw.js',
+          '**/workbox-*.js',
+        ],
+        importScripts: ['push-sw.js'],
         navigateFallback: '/index.html',
         cleanupOutdatedCaches: true,
       },
@@ -58,4 +65,14 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    proxy: {
+      '/api/push': 'http://localhost:8787',
+    },
+  },
+  preview: {
+    proxy: {
+      '/api/push': 'http://localhost:8787',
+    },
+  },
 })

@@ -13,6 +13,14 @@ O app já vem com manifest, service worker (funciona offline), ícones, splash s
 
 > A instalação no celular exige HTTPS. No Android, use o botão "Instalar" (Chrome). No iOS, use Safari → Compartilhar → Adicionar à Tela de Início.
 
+### Testar notificações push
+
+1. `npm run push:server` — gera as chaves VAPID (`push.config.json`) e inicia o servidor em `http://localhost:8787`.
+2. `npm run dev` — o Vite encaminha `/api/push` para esse servidor.
+3. No app, clique em **Ativar notificações** e depois em **Enviar teste**.
+4. Notificações recorrentes: `npm run push:server -- --every 60` (envia a cada 60s). Flags: `--title`, `--body`, `--port`.
+5. No iPhone: o push só aparece com o PWA instalado na Tela de Início (iOS 16.4+) e via HTTPS — use um túnel (`cloudflared tunnel --url http://localhost:5173`) porque o celular não acessa `localhost`.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)

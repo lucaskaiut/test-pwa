@@ -3,6 +3,7 @@ import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import { InstallPrompt } from './components/InstallPrompt'
+import { PushNotifications } from './components/PushNotifications'
 import { ReloadPrompt } from './components/ReloadPrompt'
 import './App.css'
 
@@ -31,6 +32,8 @@ function App() {
           Count is {count}
         </button>
       </section>
+
+      <PushNotifications />
 
       <div className="ticks"></div>
 
