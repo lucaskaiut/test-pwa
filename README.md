@@ -21,6 +21,19 @@ O app já vem com manifest, service worker (funciona offline), ícones, splash s
 4. Notificações recorrentes: `npm run push:server -- --every 60` (envia a cada 60s). Flags: `--title`, `--body`, `--port`.
 5. No iPhone: o push só aparece com o PWA instalado na Tela de Início (iOS 16.4+) e via HTTPS — use um túnel (`cloudflared tunnel --url http://localhost:5173`) porque o celular não acessa `localhost`.
 
+### Push em produção na Vercel
+
+Na Vercel o app é estático, então as rotas `/api/push/*` são funções serverless em `api/push/` (teste manual pelo botão, sem banco de dados).
+
+1. Em **Settings → Environment Variables** do projeto na Vercel, adicione (valores estão em `push.config.json`):
+   - `VAPID_PUBLIC_KEY` — chave pública
+   - `VAPID_PRIVATE_KEY` — chave privada
+   - `VAPID_SUBJECT` — ex.: `mailto:seu@email.com`
+2. Faça o deploy: `vercel --prod` (CLI) ou `git push`, se o projeto estiver conectado a um repositório.
+3. No celular, abra o app **instalado**, toque em **Ativar notificações** e depois em **Enviar teste**.
+
+Rotas publicadas: `GET /api/push/public-key`, `POST /api/push/subscribe` e `POST /api/push/send` (recebe `{ subscription, title, body, url }`). O envio recorrente a cada 60s com o app fechado precisa de cron de 1 minuto (Cloudflare Worker) ou do script local `--every 60` no PC.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)

@@ -47,7 +47,7 @@ function saveSubscription(subscription) {
 }
 
 async function sendPush(overrides = {}) {
-  const subscription = readSubscription()
+  const subscription = overrides.subscription || readSubscription()
   if (!subscription) {
     console.log('Nenhuma inscrição salva. Ative as notificações no app primeiro.')
     return false

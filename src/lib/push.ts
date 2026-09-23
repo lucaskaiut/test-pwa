@@ -127,10 +127,15 @@ export async function disablePushNotifications(): Promise<void> {
 }
 
 export async function sendTestPush(message: PushMessage = {}): Promise<void> {
+  const subscription = await getSubscription()
+  if (!subscription) {
+    throw new Error('Nenhuma inscrição ativa. Ative as notificações primeiro.')
+  }
+
   const response = await fetch(`${PUSH_API}/send`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(message),
+    body: JSON.stringify({ ...message, subscription: subscription.toJSON() }),
   })
   if (!response.ok) {
     throw new Error(
